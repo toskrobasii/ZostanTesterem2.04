@@ -87,4 +87,16 @@ public class UltimateQATest extends PageSetup {
         }
     }
 
+    @Test
+    public void testFour() {
+        //assertTrue(webElement.isHighlighted())
+
+        // postać xpath gdzie zawiera wyrażenie      //*[contains(@class, 'et_pb_module et_pb_cta_0 et_pb_prom')]
+        WebElement blueField = driver.findElement(By.xpath("//*[contains(@class, 'et_pb_module et_pb_cta_0 et_pb_prom')]"));
+        Assertions.assertTrue(blueField.isDisplayed());
+        // zamiana HEX na RGB
+
+        Assertions.assertEquals("rgba(46, 163, 242, 1)", blueField.getCssValue("background-color"));
+    }
+
 }
