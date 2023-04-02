@@ -3,6 +3,9 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
+import java.util.ArrayList;
+import java.util.List;
+
 // modyfikatory dostępu: public, private, protected w Java - hermetyzacja w Java (enkapsulacja)
 public class UltimateQATest extends PageSetup {
 
@@ -42,6 +45,46 @@ public class UltimateQATest extends PageSetup {
         // odbijanie się od elementów: //*[@class='']/p     / - jeden poziom    // - 1 poziom i więcej
         WebElement thanksText = driver.findElement(By.xpath("//div[@class='et-pb-contact-message']/p"));
         Assertions.assertEquals("Thanks for contacting us", thanksText.getText());
+    }
+
+    //assertTrue(webElement.isDisplayed)
+    //assertTrue(webElement.isSelected)
+
+    @Test
+    public void testThree() {
+
+        //róźnica pomiędzy List, a ArrayList
+        List<String> listOfCars = new ArrayList<>();
+        // skrót Ctrl + D - kopiowanie linii
+        listOfCars.add("volvo");
+        listOfCars.add("saab");
+        listOfCars.add("opel");
+        listOfCars.add("audi");
+
+        // xpath wyszukiwanie po tekscie:  //div[text()='Select an option and validate that it is selected']
+        WebElement dropdown = driver.findElement(By.xpath("//div[text()='Select an option and validate that it is selected']"));
+
+        for(int i = 0 ; i < listOfCars.size(); i++) {
+            dropdown.click();
+
+            WebElement dropdownOption = driver.findElement(By.xpath("//option[@value='" + listOfCars.get(i) +"']"));
+            dropdownOption.click();
+            // import static Assertions
+            Assertions.assertTrue(dropdownOption.isSelected());
+            Assertions.assertEquals(listOfCars.get(i), dropdownOption.getText().toLowerCase());
+        }
+
+        //równoważne:
+
+        for (String listOfCar : listOfCars) {
+            dropdown.click();
+
+            WebElement dropdownOption = driver.findElement(By.xpath("//option[@value='" + listOfCar + "']"));
+            dropdownOption.click();
+            // import static Assertions
+            Assertions.assertTrue(dropdownOption.isSelected());
+            Assertions.assertEquals(listOfCar, dropdownOption.getText().toLowerCase());
+        }
     }
 
 }
